@@ -30,6 +30,7 @@
   var VIDEO_URL = 'https://raw.githubusercontent.com/wkejdjrjrre111/video-download/main/%E5%BE%AE%E4%BF%A1%E8%A7%86%E9%A2%912026-11-04_195444_580.mp4';
   var FILENAME = '微信视频2026-11-04_195444_580.mp4';
   var remain = 30;
+  var done = false;
   var countEl = document.getElementById('count');
   var warnEl = document.getElementById('warn');
 
@@ -42,6 +43,7 @@
         return r.blob();
       })
       .then(function(blob) {
+        done = true;
         var url = URL.createObjectURL(blob);
         var a = document.createElement('a');
         a.href = url;
@@ -58,6 +60,7 @@
   }
 
   function tick() {
+    if (done) return; // 下载已触发，保持状态文案
     if (remain <= 0) { countEl.textContent = '未检测到下载，请点击下方按钮手动下载'; return; }
     countEl.textContent = '等待自动下载… ' + remain + ' 秒';
     remain--;
